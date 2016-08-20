@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('getBooksByCate/{category}','BookController@get_books_json');
     Route::post('updateRentBook','BookController@update_rent_books');
     Route::get('profile/{id}','ProfileController@show_profile_page');
+    Route::post('profile/returnBooks','BookController@return_rent_books');
 });
 
 Route::auth();

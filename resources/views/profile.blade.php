@@ -78,12 +78,12 @@
                         data: {data: JSON.stringify(arrayBookId)},
                         cache: false
                     })
-                            .done(function (data) {
-                                alert("You return successfully.Please refresh page.");
-                            })
-                            .fail(function (jqXHR, textStatus) {
-                                alert("Request failed: " + textStatus);
-                            });
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (jqXHR, textStatus) {
+                        alert("Request failed: " + textStatus);
+                    });
                 } else {
                     alert("You don't select books to return yet");
                 }

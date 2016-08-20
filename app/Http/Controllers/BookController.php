@@ -91,4 +91,21 @@ class BookController extends Controller
         $user = User::find($user_id);
         $user->books()->save($book);
     }
+    
+    public function return_rent_books(Request $request)
+    {
+        $data = json_decode($request->data);
+        if (count($data) > 0) {
+            foreach ($data as $book_id) {
+                $book = $this->set_available_book($book_id, 1);
+                $this->user_return_book($book);
+            }
+        }
+    }
+    
+    public function user_return_book(Book $book)
+    {
+        $book->user_id = null;
+        $book->save();
+    }
 }
