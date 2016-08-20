@@ -12,6 +12,7 @@
 */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/','DashboardController@show_page');
+    Route::get('createNewBooks','BookController@show_create_new_books_page');
 });
 
 Route::auth();
