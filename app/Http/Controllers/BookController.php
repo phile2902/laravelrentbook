@@ -49,4 +49,19 @@ class BookController extends Controller
 
         return redirect()->back()->with('status', 'Book added!');
     }
+    
+    public function show_books_list_page()
+    {
+        $categories = Category::all();
+        return view('bookslist',compact('categories'));
+    }
+    
+    public function get_books_json($category)
+    {
+        if ($category != 0) {
+            return $books = Book::where('available', 1)->where('category_id', $category)->get()->toJson();
+        } else {
+            return $books = Book::where('available', 1)->get()->toJson();
+        }
+    }
 }

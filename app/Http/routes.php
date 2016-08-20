@@ -13,7 +13,9 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/','DashboardController@show_page');
     Route::get('createNewBooks','BookController@show_create_new_books_page');
+    Route::get('booksList','BookController@show_books_list_page');
     Route::post('postCreateNewBooks','BookController@save_new_books');
+    Route::get('getBooksByCate/{category}','BookController@get_books_json');
 });
 
 Route::auth();
