@@ -107,7 +107,7 @@
                         cache: false
                     })
                     .done(function (data) {
-                        console.log(data);
+                        location.reload();
 
                     })
                     .fail(function (jqXHR, textStatus) {
