@@ -50,7 +50,10 @@
                     
                     @if(Auth::check())
                         <li><a href="{{ url('booksList') }}">Books</a></li>
+                        @if(Auth::user()->role == 'admin')
                         <li><a href="{{ url('createNewBooks') }}">Add new books</a></li>
+                        @endif
+                        
                     @endif
                 </ul>
 
