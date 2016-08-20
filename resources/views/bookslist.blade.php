@@ -106,13 +106,13 @@
                         data: {data: JSON.stringify(arrayBookId)},
                         cache: false
                     })
-                            .done(function (data) {
-                                alert('Rent books successfully');
-                                
-                            })
-                            .fail(function (jqXHR, textStatus) {
-                                alert("Request failed: " + textStatus);
-                            });
+                    .done(function (data) {
+                        console.log(data);
+
+                    })
+                    .fail(function (jqXHR, textStatus) {
+                        alert("Request failed: " + textStatus);
+                    });
                 } else {
                     console.log('No books selected yet');
                 }

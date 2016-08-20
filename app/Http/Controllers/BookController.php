@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\Http\Requests;
 use App\Category;
 use App\Book;
+use App\User;
 use App\Http\Requests\NewBookRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as gRequest;
@@ -63,5 +65,30 @@ class BookController extends Controller
         } else {
             return $books = Book::where('available', 1)->get()->toJson();
         }
+    }
+    
+    public function update_rent_books(Request $request)
+    {      
+        $data = json_decode($request->data);
+        if(count($data) > 0){
+            foreach ($data as $book_id) {
+                $book = $this->set_available_book($book_id, 0);
+                $this->user_rent_book(Auth::id(), $book);
+            }
+        }           
+    }
+    
+    public function set_available_book($book_id,$available)
+    {
+        $book = Book::find($book_id);
+        $book->available = $available;
+        $book->save();
+        return $book;
+    }
+    
+    public function user_rent_book($user_id,Book $book)
+    {
+        $user = User::find($user_id);
+        $user->books()->save($book);
     }
 }
