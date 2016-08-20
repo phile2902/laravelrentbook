@@ -108,7 +108,6 @@
                     })
                     .done(function (data) {
                         location.reload();
-
                     })
                     .fail(function (jqXHR, textStatus) {
                         alert("Request failed: " + textStatus);

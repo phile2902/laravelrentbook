@@ -16,7 +16,7 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{$user->id}}</td>
-                            <td><a href="#">{{$user->name}}</a></td>
+                            <td><a href="profile/{{$user->id}}">{{$user->name}}</a></td>
                             <td>{{$user->email}}</td>
                         </tr> 
                         @endforeach
