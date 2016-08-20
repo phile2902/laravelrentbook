@@ -19,29 +19,32 @@ class BookController extends Controller
         return view('createnewbooks', compact('categories'));
     }
     
-    public function save_new_books(NewBookRequest $request)
-    {
+    public function getImage_guzzle($path){
         //Upload image to imgur and get an api
         $url = "https://api.imgur.com/3/image";
         $client_id = "ec059f02e935857";
         $client = new Client();
         $gRequest = new gRequest(
-            'POST',
-            $url,
-            [
-                "Authorization" => "Client-ID " . $client_id
-            ],
-            base64_encode(file_get_contents($request->file('uploadImage')->getRealPath()))
+            'POST', $url, [
+            "Authorization" => "Client-ID " . $client_id
+            ], base64_encode(file_get_contents($path))
         );
         $gResponse = $client->send($gRequest, ['timeout' => 2]);
-        $imgLink = json_decode($gResponse->getBody()->getContents());
+        return json_decode($gResponse->getBody()->getContents());
+    }
+
+
+    public function save_new_books(NewBookRequest $request)
+    {
+        $imagePath = $request->file('uploadImage')->getRealPath();
+        $imgObj = $this->getImage_guzzle($imagePath);
         //Save to books table
         $book = new Book;
         $book->available = 1;
         $book->name = $request->name;
         $book->category_id = $request->category;
         $book->info = $request->info;
-        $book->imgLink = $imgLink->data->link;
+        $book->imgLink = $imgObj->data->link;
         $book->save();
 
         return redirect()->back()->with('status', 'Book added!');
