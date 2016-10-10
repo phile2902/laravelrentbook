@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function show_profile_page($id)
     {
-        $user = User::find($id);
+        $user  = User::find($id);
         $books = $user->books;
         return view('profile', ['user' => $user, 'books' => $books]);
     }
